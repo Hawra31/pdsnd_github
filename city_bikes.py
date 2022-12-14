@@ -40,16 +40,16 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    
+
     cities = ['chicago','new york city','washington']
     months = ['january','february','march','april','may','june','july','august','september','october','november','december','all']
     days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday','all']
-    
+
     print('\nHello! Let\'s explore some US bikeshare data!')
-    
+
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     # get user input for day of week (all, monday, tuesday, ... sunday)
-    
+
     while True:
         city = input('Which city do you want to explore (chicago, new york city, washington)? ')
         city = city.lower()
@@ -69,7 +69,7 @@ def get_filters():
                     break
 
     print('-'*40)
-    return city, month, day   
+    return city, month, day
 
 
 def load_data(city, month, day):
@@ -83,21 +83,21 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-        
+
     for key, value in CITY_DATA.items():
-        if key == city:  
+        if key == city:
             df = pd.read_csv(value, index_col = 0)
-    
+
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    
+
     if month != 'all':
         for key, value in months.items():
-            if value == month: 
+            if value == month:
                 df = df[df['Start Time'].dt.month == key]
-                
-    if day != 'all':        
+
+    if day != 'all':
         for key, value in days.items():
-            if value == day: 
+            if value == day:
                 df = df[df['Start Time'].dt.dayofweek == key]
 
     return df
@@ -108,7 +108,7 @@ def time_stats(df):
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
-    
+
     # display the most common month
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     print('the most common month:', df['Start Time'].dt.month.mode()[0])
@@ -131,7 +131,7 @@ def time_stats(df):
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
-    
+
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
@@ -154,7 +154,7 @@ def trip_duration_stats(df):
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
-    
+
     # display total travel time
     print('the total time travel: ', df['Trip Duration'].sum())
 
@@ -188,16 +188,19 @@ def user_stats(df):
         print('\nthe earliest birth year: {}\nthe most recent birth year: {}\nthe most common birth year: {}\n'.format(min(df['Birth Year']), max(df['Birth Year']), df['Birth Year'].mode()))
     else:
         print('the earliest birth year:\nno data available\n')
-        
+
     print("This took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
 
 
 def main():
-    
+
+    '''the while loop allows the user to use the piece of code over
+       and over without having to run the code again'''
+
     while True:
-        
+
         city, month, day = get_filters()
         df1 = load_data(city, month, day)
 
@@ -205,9 +208,9 @@ def main():
         station_stats(df1)
         trip_duration_stats(df1)
         user_stats(df1)
-        
+
         restart = input('\nWould you like to restart? Enter yes or no.\n')
-        
+
         if restart.lower() == 'no':
             break
         elif restart.lower() == 'yes':
@@ -218,8 +221,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
