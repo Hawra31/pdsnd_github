@@ -20,4 +20,4 @@ This project explores bikeshare data in Chicago, New York, and Washington. It al
 
 ### Credits
 Shout out to Udacity. I made this project as part of my Programming for Data Science Nanodegree.
-link: https://www.udacity.com/course/programming-for-data-science-nanodegree--nd104 
+link: https://www.udacity.com/course/programming-for-data-science-nanodegree--nd104
